@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Your Personal Recipe</title>
+    <a href="index.html">Main Menu</a>
+</head>
+<body>
+    <form>
+        <h1>Uploading your Personal Recipe to our Website!</h1>
+        <h3>Title of your Recipe:</h3>
+        <input type="text" name="Title" required>
+        <h3>List of Ingredients:</h3>
+        <p><em>Att: Type one ingredient at a time</em></p>
+        <input type="text" name="ingredients" required>
+        <div id="new-input-ingredients"></div>
+        <button type="button" class="button" onclick="addInputIngredients()">Add Extra Text</button>
+        <h3>Steps by Step Intructions:</h3>
+        <p><em>Att: Type one step at a time</em></p>
+        <input type="text" name="steps" required>
+        <div id="new-input-steps"></div>
+        <button type="button" class="button" onclick="addInputSteps()">Add Extra Text</button>
+        <h3>Upload Image:</h3>
+        <input type="file" name="filename" required>
+        <div>
+            <p><span>Click Below to Submit:</span></p>
+            <input action="recipes.json" type="submit" method="POST">
+        </div>
+
+    </form>
+    <script>
+        function addInputIngredients() {
+            var container = document.getElementById('new-input-ingredients');
+            const newElem = document.createElement("input");
+            newElem.setAttribute("type", "text");
+            container.appendChild(newElem);
+        }
+        function addInputSteps() {
+            var container = document.getElementById('new-input-steps');
+            const newElem = document.createElement("input");
+            newElem.setAttribute("type", "text");
+            container.appendChild(newElem);
+        }
+    </script>
+</body>
+</html>
