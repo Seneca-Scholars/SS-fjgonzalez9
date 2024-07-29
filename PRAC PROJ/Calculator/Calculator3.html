@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Group 1 Smart Calculator</title>
+    <style>
+        /* This is where the Page Padding/Color/Font is located */
+        body {
+            background-image: url('https://as2.ftcdn.net/v2/jpg/04/30/40/19/1000_F_430401943_0r1rJlCjaEfzq5gJGRENuQtaB8SVGmT7.jpg');
+            color: rgb(79, 56, 56);
+        }
+        /* This is the physical body of the Calculator */
+        .Calculator {
+            border-collapse: collapse;
+            width: 500px;
+            height: 500px;
+            margin: 500px auto;
+            background-color: rgb(241, 119, 119);
+            border: 1px solid rgb(241, 119, 119);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        /* This is where the Title Padding/Color/Font is located */
+        caption {
+            font-size: 4em;
+            padding: 10px;
+            background-color: #ffb300dd;
+            border-bottom: 1px solid rgb(241, 119, 119);
+        }
+        /* This is where the rows/columns of the table is located */
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid rgb(241, 119, 119)c;
+        }
+        /* This is where the Display/Results of the Calculator is displayed */
+        input[type="text"] {
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+            font-size: 3em;
+            background-color: #5bf4d5a7;
+            box-sizing: border-box;
+        }
+        /* This is where the buttons format is located */
+        button {
+            width: 100%;
+            height: 75%;
+            padding: 50px;
+            font-size: 2em;
+            background-color: #5bf4d5b7;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            color: rgb(0, 0, 0);
+            border: 1;
+            cursor: pointer;
+        }
+        /* This is where the button's after effects when the mouse is on top is located */
+        button:hover {
+            background-color: #6fdaf0;
+        }
+    </style>
+</head>
+<body>
+    <table class="Calculator">
+        <caption>Smart Duckulator 🦆</caption> <!-- Caption for the table -->
+        <thead>
+            <tr class="display">
+                <th colspan="3"><input id="result" type="text"></th>
+                <td><button value="clear" type="button" onclick="clearScreen()">CE</button></td>  <!-- Clear screen button -->
+            </tr>
+        </thead>
+        <tbody>
+             <tr> <!--ROW 1  -->
+                <td><button value="1" type="button" onclick="display('1')">1</button></td> <!-- Button 1 -->
+                <td><button value="2" type="button" onclick="display('2')">2</button></td> <!-- Button 2 -->
+                <td><button value="3" type="button" onclick="display('3')">3</button></td> <!-- Button 3 -->
+                <td><button value="+" type="button" onclick="display('+')">+</button></td>  <!-- Addition operator -->
+            </tr>
+            <tr> <!--ROW 2 -->
+                <td><button value="4" type="button" onclick="display('4')">4</button></td> <!-- Button 4 -->
+                <td><button value="5" type="button" onclick="display('5')">5</button></td> <!-- Button 5 -->
+                <td><button value="6" type="button" onclick="display('6')">6</button></td> <!-- Button 6 -->
+                <td><button value="-" type="button" onclick="display('-')">-</button></td>  <!-- Subtraction operator -->
+            </tr>
+            <tr> <!--ROW 3  -->
+                <td><button value="7" type="button" onclick="display('7')">7</button></td> <!-- Button 7 -->
+                <td><button value="8" type="button" onclick="display('8')">8</button></td> <!-- Button 8 -->
+                <td><button value="9" type="button" onclick="display('9')">9</button></td> <!-- Button 9 -->
+                <td><button value="x" type="button" onclick="display('*')">x</button></td>  <!-- Multiplication operator -->
+            </tr>
+            <tr> <!--ROW 4  -->
+                <td><button value="." type="button" onclick="display('.')">.</button></td> <!-- Button . -->
+                <td><button value="0" type="button" onclick="display('0')">0</button></td> <!-- Button 0 -->
+                <td><button value="=" type="button" onclick="solve()">=</button></td> <!-- Equal sign for calculation -->
+                <td><button value="/" type="button" onclick="display('/')">/</button></td> <!-- Division operator -->
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        function display(val) {
+            document.getElementById('result').value += val //Adds the required input to the display bar's value
+            return val //Returns the combined value
+        }
+        function solve(){
+            let x = document.getElementById('result').value //x = the value that the bar currently has (see display())
+            let y = eval(x); //Performs the equation; eval converts the String to an integer to solve it and spit out an integer (works for symbols as well)
+            document.getElementById('result').value = y //Makes the equation's answer the bar's value
+            return y //Spits out the answer
+        }
+        function clearScreen(){
+            document.getElementById('result').value = '' //Makes the bar's value '', making it blank
+        }
+    </script>
+</body>
+</html>
+
