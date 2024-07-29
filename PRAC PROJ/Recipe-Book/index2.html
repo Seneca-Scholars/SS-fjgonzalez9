@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Recipe Book</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .recipe img {
+            max-width: 100px;
+            height: auto;
+        }
+        .recipe-details {
+            display: none;
+        }
+        .recipe-button {
+            cursor: pointer;
+            color: #007bff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Simple Recipe Book</h1>
+    <table id="recipe-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody id="recipe-list"></tbody>
+    </table>
+
+    <script>
+        // Function to load recipes from the JSON file
+        async function loadRecipes() {
+            try {
+                // Fetch data from the JSON file
+                const response = await fetch('recipes.json');
+                const recipes = await response.json();
+
+                // Get the table body element
+                const recipeList = document.getElementById('recipe-list');
+
+                // Create rows for each recipe
+                recipes.forEach((recipe, index) => {
+                    // Create a row for the recipe
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${recipe.Name}</td>
+                        <td>${recipe.Image ? `<img src="${recipe.Image}" alt="${recipe.Name}">` : ''}</td>
+                        <td><span class="recipe-button" onclick="toggleDetails(${index})">Show Details</span></td>
+                    `;
+
+                    // Create a row for recipe details
+                    const detailsRow = document.createElement('tr');
+                    detailsRow.classList.add('recipe-details');
+                    detailsRow.id = `recipe-details-${index}`;
+                    detailsRow.innerHTML = `
+                        <td colspan="3">
+                            <h3>Ingredients:</h3>
+                            <ul>
+                                ${recipe.Ingredients.map(ingredient => `<li>${ingredient.amount} of ${ingredient.name}</li>`).join('')}
+                            </ul>
+                            <h3>Steps:</h3>
+                            <ol>
+                                ${recipe.Steps.map(step => `<li>${step}</li>`).join('')}
+                            </ol>
+                        </td>
+                    `;
+
+                    // Append rows to the table body
+                    recipeList.appendChild(row);
+                    recipeList.appendChild(detailsRow);
+                });
+            } catch (error) {
+                console.error('Error loading recipes:', error);
+            }
+        }
+
+        // Function to toggle recipe details
+        function toggleDetails(index) {
+            const details = document.getElementById(`recipe-details-${index}`);
+            const button = details.previousElementSibling.querySelector('.recipe-button');
+            if (details.style.display === 'none' || details.style.display === '') {
+                details.style.display = 'table-row';
+                button.textContent = 'Hide Details';
+            } else {
+                details.style.display = 'none';
+                button.textContent = 'Show Details';
+            }
+        }
+
+        // Load recipes when the page is ready
+        document.addEventListener('DOMContentLoaded', loadRecipes);
+    </script>
+</body>
+</html>
