@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+<head
    <title>Simple Recipe Book</title>
    <style>
        body {
@@ -50,6 +50,17 @@
        .recipe-button:hover {
            background: #555;
        }
+       .edit-button {
+           color: #ffffff;
+           background: #007bff;
+           border: none;
+           padding: 5px 10px;
+           border-radius: 3px;
+           cursor: pointer;
+       }
+       .edit-button:hover {
+           background: #0056b3;
+       }
    </style>
 </head>
 <body>
@@ -66,6 +77,7 @@
            <tr>
                <th>Name</th>
                <th>Details</th>
+               <th>Actions</th>
            </tr>
        </thead>
        <tbody id="recipe-list"></tbody>
@@ -137,13 +149,14 @@
                row.innerHTML = `
                    <td>${recipe.Name}</td>
                    <td><button class="recipe-button" id="button-${index}" onclick="toggleDetails(${index})">Show Details</button></td>
+                   <td><button class="edit-button" onclick="editRecipe(${index})">Edit</button></td>
                `;
 
                const detailsRow = document.createElement('tr');
                detailsRow.classList.add('recipe-details');
                detailsRow.id = `recipe-details-${index}`;
                detailsRow.innerHTML = `
-                   <td colspan="2">
+                   <td colspan="3">
                        <h3>Ingredients:</h3>
                        <ul>
                            ${recipe.Ingredients.map(ingredient => `<li>${ingredient.amount} of ${ingredient.name}</li>`).join('')}
@@ -171,6 +184,13 @@
                details.style.display = 'none';
                button.textContent = 'Show Details';
            }
+       }
+
+       function editRecipe(index) {
+           const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+           const recipeToEdit = hardcodedRecipes.concat(recipes)[index];
+           localStorage.setItem('recipeToEdit', JSON.stringify({ index: index, recipe: recipeToEdit }));
+           window.location.href = 'form.html';
        }
 
        document.addEventListener('DOMContentLoaded', loadRecipes);
