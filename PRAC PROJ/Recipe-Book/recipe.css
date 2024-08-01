@@ -1,33 +1,29 @@
 #body-main-pg {
     display: grid;
     grid-template-columns: 30% 70%;
-    background-color: #8E6E53;
+    background-color:#8E6E53;
+    margin:0;
+    padding:0;
 }
 
 #side-bar {
-    padding-right: 10px;
+    width:30vw;
+    height:100vh;
+    background-color:blanchedalmond;
+    padding:0;
+    margin:0;
+    overflow: hidden;
 }
 
 #main-content {
     padding-left: 20px;
     color: white;
-    font-family: serif;
-}
+    font-family:serif;
 
-#body-form-aboutus {
-    background-color: #8E6E53;
-    color: white;
-    font-family: serif;
-    text-align: center;
-}
-
-img {
-    width: 100%;
-    height: auto; 
 }
 
 h1 {
-    text-align: center;
+    text-align:center;
     font-size: 50px;
     padding-bottom: 15px;
 }
@@ -36,40 +32,55 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
+    flex-wrap:wrap;
 }
 
-th, td {
+th {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 25px;
+}
+td {
     padding: 10px;
     border: 1px solid #ddd;
     text-align: center;
 }
 
-th {
-    font-size: 25px;
-}
-
-td {
-    font-size: 18px;
-}
-
 #directory {
-    display: flex;
+    display:flex;
     justify-content: space-around;
-    padding: 10px;
+    padding:10px;
     border-bottom: 1px solid white;
+
+}
+
+#body-form-aboutus {
+    background-color:#8E6E53;
+    color: white;
+    font-family:serif;
+    text-align:center;
+}
+
+#footer-aboutus {
+    padding-top: 80px;
+    width:100%;
 }
 
 a {
     text-decoration: none;
-    color: white;
+    color:white;
     font-size: 23px;
-    font-style: italic;
+    font-style:italic;
 }
 
 a:hover {
-    color: blanchedalmond;
+    color:blanchedalmond;
 }
 
 h3 { 
-    font-size: 23px;
+    font-size: 30px;
+    margin-bottom:5px;
+    padding:0;
+    padding-top:15px;
 }
