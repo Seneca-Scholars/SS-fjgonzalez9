@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Submit Your Personal Recipe</title>
-    <link href="recipe.css" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            margin: 20px;
+        }
+        #directory a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .button {
+            padding: 5px 10px;
+            background: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .button:hover {
+            background: #555;
+        }
+        input[type="text"] {
+            display: block;
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h3 {
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<body id="body-form-aboutus">
+<body>
     <form id="recipeForm">
         <div id="directory">
             <a href="index.html"><b>Main Menu</b></a>
@@ -12,9 +46,9 @@
             <a href="aboutus.html"><b>About Us</b></a>
         </div>
 
-        <h1>Upload your Personal Recipe to our Website!</h1>
+        <h1>Upload Your Personal Recipe to Our Website!</h1>
 
-        <h3>Title of your Recipe:</h3>
+        <h3>Title of Your Recipe:</h3>
         <input type="text" id="title" name="title" required>
 
         <h3>List of Ingredients:</h3>
@@ -23,7 +57,7 @@
         <div id="new-input-ingredients"></div>
         <button type="button" class="button" onclick="addInputIngredients()">Add Extra Ingredient</button>
 
-        <h3>Step by Step Instructions:</h3>
+        <h3>Step-by-Step Instructions:</h3>
         <p><em>Note: Type one step at a time</em></p>
         <input type="text" id="step" name="steps">
         <div id="new-input-steps"></div>
@@ -34,7 +68,7 @@
 
         <div>
             <h3><span>Click Below to Submit:</span></h3>
-            <input type="submit" value="Submit Recipe">
+            <input type="submit" value="Submit Recipe" class="button">
         </div>
     </form>
 
@@ -70,9 +104,9 @@
                 Image: image
             };
 
-            let recipes = JSON.parse(localStorage.getItem('daniel great')) || [];
+            let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
             recipes.push(recipe);
-            localStorage.setItem('daniel great', JSON.stringify(recipes));
+            localStorage.setItem('recipes', JSON.stringify(recipes));
 
             alert('Recipe submitted successfully!');
             document.getElementById('recipeForm').reset();

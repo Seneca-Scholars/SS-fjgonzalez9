@@ -47,6 +47,9 @@
            padding: 5px 10px;
            border-radius: 3px;
        }
+       .recipe-button:hover {
+           background: #555;
+       }
    </style>
 </head>
 <body>
@@ -69,7 +72,8 @@
    </table>
 
    <script>
-       const recipes = [
+       // Hardcoded recipes
+       const hardcodedRecipes = [
            {
                "Name": "Baked Mac and Cheese",
                "Ingredients": [
@@ -119,35 +123,43 @@
            }
        ];
 
-       const recipeList = document.getElementById('recipe-list');
+       function loadRecipes() {
+           const recipeList = document.getElementById('recipe-list');
+           let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
 
-       recipes.forEach((recipe, index) => {
-           const row = document.createElement('tr');
+           // Combine hardcoded recipes with local storage recipes
+           recipes = hardcodedRecipes.concat(recipes);
 
-           row.innerHTML = `
-               <td>${recipe.Name}</td>
-               <td><button class="recipe-button" id="button-${index}" onclick="toggleDetails(${index})">Show Details</button></td>
-           `;
+           recipeList.innerHTML = ''; // Clear existing recipes
 
-           const detailsRow = document.createElement('tr');
-           detailsRow.classList.add('recipe-details');
-           detailsRow.id = `recipe-details-${index}`;
-           detailsRow.innerHTML = `
-               <td colspan="2">
-                   <h3>Ingredients:</h3>
-                   <ul>
-                       ${recipe.Ingredients.map(ingredient => `<li>${ingredient.amount} of ${ingredient.name}</li>`).join('')}
-                   </ul>
-                   <h3>Steps:</h3>
-                   <ol>
-                       ${recipe.Steps.map(step => `<li>${step}</li>`).join('')}
-                   </ol>
-               </td>
-           `;
+           recipes.forEach((recipe, index) => {
+               const row = document.createElement('tr');
+               row.innerHTML = `
+                   <td>${recipe.Name}</td>
+                   <td><button class="recipe-button" id="button-${index}" onclick="toggleDetails(${index})">Show Details</button></td>
+               `;
 
-           recipeList.appendChild(row);
-           recipeList.appendChild(detailsRow);
-       });
+               const detailsRow = document.createElement('tr');
+               detailsRow.classList.add('recipe-details');
+               detailsRow.id = `recipe-details-${index}`;
+               detailsRow.innerHTML = `
+                   <td colspan="2">
+                       <h3>Ingredients:</h3>
+                       <ul>
+                           ${recipe.Ingredients.map(ingredient => `<li>${ingredient.amount} of ${ingredient.name}</li>`).join('')}
+                       </ul>
+                       <h3>Steps:</h3>
+                       <ol>
+                           ${recipe.Steps.map(step => `<li>${step}</li>`).join('')}
+                       </ol>
+                       ${recipe.Image ? `<h3>Image:</h3><img src="${recipe.Image}" alt="${recipe.Name}">` : ''}
+                   </td>
+               `;
+
+               recipeList.appendChild(row);
+               recipeList.appendChild(detailsRow);
+           });
+       }
 
        function toggleDetails(index) {
            const details = document.getElementById(`recipe-details-${index}`);
@@ -160,6 +172,8 @@
                button.textContent = 'Show Details';
            }
        }
+
+       document.addEventListener('DOMContentLoaded', loadRecipes);
    </script>
 </body>
 </html>
