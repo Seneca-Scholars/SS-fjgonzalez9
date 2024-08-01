@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Details</title>
+    <link href="recipe.css" rel="stylesheet" type="text/css" />
+</head>
+<body id="body-main-pg">
+    <div id="side-bar">
+        <img src="sidebar.jpg" alt="Sidebar Image">
+    </div>
+    <div id="main-content">
+        <div id="directory">
+            <a href="index.html"><b>Main Menu</b></a>
+            <a href="form.html"><b>Submission Request</b></a>
+            <a href="aboutus.html"><b>About Us</b></a>
+        </div>
+        <h1>Recipe Details</h1>
+        <div id="recipe-details">
+            <!-- Recipe details will be inserted here by JavaScript -->
+        </div>
+    </div>
+    <script type="text/javascript">
+        // Get the recipe name from the URL query parameters
+        const params = new URLSearchParams(window.location.search);
+        const recipeName = params.get('name');
+
+        // Fetch the recipes from the JSON file
+        fetch('recipes.json')
+            .then(response => response.json())
+            .then(data => {
+                const recipeDetails = document.getElementById("recipe-details");
+                const recipe = data.find(r => r.Name === recipeName);
+
+                if (recipe) {
+                    recipeDetails.innerHTML = `
+                        <h2>${recipe.Name}</h2>
+                        <img src="${recipe.Image}" alt="${recipe.Name}">
+                        <h3>Ingredients:</h3>
+                        <ul>
+                            ${recipe.Ingredients.map(ingredient => 
+                                `<li>${ingredient.name}: ${ingredient.amount}</li>`
+                            ).join('')}
+                        </ul>
+                        <h3>Steps:</h3>
+                        <ol>
+                            ${recipe.Steps.map(step => 
+                                `<li>${step}</li>`
+                            ).join('')}
+                        </ol>
+                    `;
+                } else {
+                    recipeDetails.innerHTML = `<p>Recipe not found.</p>`;
+                }
+            });
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 #body-main-pg {
     display: grid;
     grid-template-columns: 30% 70%;
-    background-color:#8E6E53;
+    background-color: #8E6E53;
 }
 
 #side-bar {
@@ -11,28 +11,23 @@
 #main-content {
     padding-left: 20px;
     color: white;
-    font-family:serif;
-
+    font-family: serif;
 }
 
 #body-form-aboutus {
-    background-color:#8E6E53;
+    background-color: #8E6E53;
     color: white;
-    font-family:serif;
-    text-align:center;
+    font-family: serif;
+    text-align: center;
 }
- 
+
 img {
-    width:30vw;
-    height:100vh;
-    position:absolute;
-    left:0;
-    top:0;
-    bottom:0;
+    width: 100%;
+    height: auto; 
 }
 
 h1 {
-    text-align:center;
+    text-align: center;
     font-size: 50px;
     padding-bottom: 15px;
 }
@@ -41,38 +36,38 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-    flex-wrap:wrap;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
 }
 
 th {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
     font-size: 25px;
 }
+
 td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
+    font-size: 18px;
 }
 
 #directory {
-    display:flex;
+    display: flex;
     justify-content: space-around;
-    padding:10px;
+    padding: 10px;
     border-bottom: 1px solid white;
-
 }
 
 a {
     text-decoration: none;
-    color:white;
+    color: white;
     font-size: 23px;
-    font-style:italic;
+    font-style: italic;
 }
 
 a:hover {
-    color:blanchedalmond;
+    color: blanchedalmond;
 }
 
 h3 { 
