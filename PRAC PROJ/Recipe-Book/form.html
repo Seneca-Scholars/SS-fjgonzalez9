@@ -110,6 +110,7 @@
             if (form.dataset.editIndex) {
                 const index = parseInt(form.dataset.editIndex);
                 recipes[index] = recipe;
+                // Add code here 
                 alert('Recipe updated successfully!');
                 form.removeAttribute('data-edit-index');
             } else {
@@ -128,10 +129,17 @@
 
             if (index !== undefined) {
                 let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-                recipes.splice(index, 1); // Remove recipe at the specified index
+                console.log(index)
+                console.log(recipes)
+                // recipes = JSON.parse(recipes).splice(0, 1, 1);
+                // const index2()= 0;
+                // if (index2 > -1) {
+                    recipes.splice(index, 1);
+                // }
+                console.log(recipes)
                 localStorage.setItem('recipes', JSON.stringify(recipes));
                 alert('Recipe deleted successfully!');
-                window.location.href = 'index.html'; // Redirect to main page
+                loadRecipes(); // Reload the recipes after deletion
             }
         }
     </script>

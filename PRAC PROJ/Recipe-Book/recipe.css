@@ -1,14 +1,29 @@
-#body-main-pg {
-    background-color:#8E6E53;
+body {
+    background-color:#40798C;
     margin:0;
     padding:0;
+    color:#F2E9E4;
+    text-align:center;
 }
 
 #main-content {
-    padding-left: 20px;
-    color: white;
     font-family:serif;
+}
 
+#directory {
+    background-color:#1F363D;
+    display:flex;
+    justify-content: space-around;
+    padding:15px;
+    border-bottom: 1px solid #F2E9E4;
+    color:#F2E9E4;
+
+}
+
+#title-pic {
+    width:67px;
+    padding-right:15px;
+    padding-left:15px;
 }
 
 h1 {
@@ -53,9 +68,11 @@ td {
     padding: 5px 10px;
     border-radius: 3px;
 }
+
 .recipe-button:hover {
     background: #555;
 }
+
 .edit-button {
     color: #ffffff;
     background: #007bff;
@@ -64,23 +81,9 @@ td {
     border-radius: 3px;
     cursor: pointer;
 }
+
 .edit-button:hover {
     background: #0056b3;
-}
-
-#directory {
-    display:flex;
-    justify-content: space-around;
-    padding:10px;
-    border-bottom: 1px solid white;
-
-}
-
-#form-aboutus {
-    background-color:#8E6E53;
-    color: white;
-    font-family:serif;
-    text-align:center;
 }
 
 a {
@@ -141,5 +144,8 @@ button:hover, input[type="submit"]:hover {
 }
 
 .form-group {
+    text-align:left;
     margin-bottom: 15px;
+    width: 700px;
+    padding-left: 30px;
 }

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link href="recipe.css" rel="stylesheet" type="text/css" />
     <title>Simple Recipe Book</title>
 </head>
-<body id="body-main-pg">
 
-    <div id="side-bar"></div>
+<body>
 
     <div id="main-content">
         <div id="directory">
@@ -14,7 +14,7 @@
             <a href="form.html"><b>Submission Request</b></a>
             <a href="aboutus.html"><b>About Us</b></a>
         </div>
-        <h1>Recipe Book</h1>
+        <h1><img id="title-pic" src="tools.png"> Recipe Book <img id="title-pic" src="tools.png"></h1>
         <table id="recipe-table">
             <thead>
                 <tr>
@@ -25,71 +25,71 @@
             </thead>
             <tbody id="recipe-list"></tbody>
         </table>
-    </div>
 
-    <script>
-        const hardcodedRecipes = [
-            {
-                "Name": "Baked Mac and Cheese",
-                "Ingredients": [
-                    {"name": "elbow pasta", "amount": "one 16 oz box"},
-                    {"name": "eggs", "amount": 2},
-                    {"name": "milk", "amount": "1 cup"},
-                    {"name": "salt", "amount": "1 tsp"},
-                    {"name": "black pepper", "amount": "1 tsp"},
-                    {"name": "onion powder", "amount": "1 tsp"},
-                    {"name": "butter", "amount": "1 stick"},
-                    {"name": "mozzarella", "amount": "1 cup"},
-                    {"name": "sharp cheddar", "amount": "1 cup"},
-                    {"name": "colby jack", "amount": "1 cup"}
-                ],
-                "Steps": [
-                    "Preheat the oven to 400 degrees.",
-                    "Boil the pasta until al dente.",
-                    "Drain pasta and put it in a pan.",
-                    "In the pot, mix milk, cheese, eggs, and seasoning over low heat.",
-                    "Pour the mixture over the pasta and mix.",
-                    "Top with more shredded cheese.",
-                    "Place in the oven and bake for 45 minutes or until the top is golden brown."
-                ],
-                "Image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRbMofYn9b1fd5-RVyV_J6Us2ZahtDAh7PkY0VPw4CsIsuozfT7"
-            },
-            {
-                "Name": "Fried Chicken",
-                "Ingredients": [
-                    {"name": "chicken pieces", "amount": "2 pounds"},
-                    {"name": "all-purpose flour", "amount": "2 cups"},
-                    {"name": "paprika", "amount": "2 tablespoons"},
-                    {"name": "garlic powder", "amount": "1 tablespoon"},
-                    {"name": "onion powder", "amount": "1 tablespoon"},
-                    {"name": "cayenne pepper", "amount": "1 tablespoon"},
-                    {"name": "salt", "amount": "1 teaspoon"},
-                    {"name": "black pepper", "amount": "1 teaspoon"},
-                    {"name": "buttermilk", "amount": "1 cup"},
-                    {"name": "vegetable oil", "amount": "3 cups"}
-                ],
-                "Steps": [
-                    "Wash the chicken.",
-                    "Season the chicken.",
-                    "Coat the chicken in flour.",
-                    "Fry the chicken."
-                ],
-                "Image": "https://pressureluckcooking.com/wp-content/uploads/2020/03/Fried-Chicken-720x540.jpg"
-            }
-        ];
 
-        function loadRecipes() {
-            const recipeList = document.getElementById('recipe-list');
-            let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-            recipes = hardcodedRecipes.concat(recipes);
+        <script>
+            let hardcodedRecipes = [
+                {
+                    "Name": "Baked Mac and Cheese",
+                    "Ingredients": [
+                        { "name": "elbow pasta", "amount": "one 16 oz box" },
+                        { "name": "eggs", "amount": 2 },
+                        { "name": "milk", "amount": "1 cup" },
+                        { "name": "salt", "amount": "1 tsp" },
+                        { "name": "black pepper", "amount": "1 tsp" },
+                        { "name": "onion powder", "amount": "1 tsp" },
+                        { "name": "butter", "amount": "1 stick" },
+                        { "name": "mozzarella", "amount": "1 cup" },
+                        { "name": "sharp cheddar", "amount": "1 cup" },
+                        { "name": "colby jack", "amount": "1 cup" }
+                    ],
+                    "Steps": [
+                        "Preheat the oven to 400 degrees.",
+                        "Boil the pasta until al dente.",
+                        "Drain pasta and put it in a pan.",
+                        "In the pot, mix milk, cheese, eggs, and seasoning over low heat.",
+                        "Pour the mixture over the pasta and mix.",
+                        "Top with more shredded cheese.",
+                        "Place in the oven and bake for 45 minutes or until the top is golden brown."
+                    ],
+                    "Image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRbMofYn9b1fd5-RVyV_J6Us2ZahtDAh7PkY0VPw4CsIsuozfT7"
+                },
+                {
+                    "Name": "Fried Chicken",
+                    "Ingredients": [
+                        { "name": "chicken pieces", "amount": "2 pounds" },
+                        { "name": "all-purpose flour", "amount": "2 cups" },
+                        { "name": "paprika", "amount": "2 tablespoons" },
+                        { "name": "garlic powder", "amount": "1 tablespoon" },
+                        { "name": "onion powder", "amount": "1 tablespoon" },
+                        { "name": "cayenne pepper", "amount": "1 tablespoon" },
+                        { "name": "salt", "amount": "1 teaspoon" },
+                        { "name": "black pepper", "amount": "1 teaspoon" },
+                        { "name": "buttermilk", "amount": "1 cup" },
+                        { "name": "vegetable oil", "amount": "3 cups" }
+                    ],
+                    "Steps": [
+                        "Wash the chicken.",
+                        "Season the chicken.",
+                        "Coat the chicken in flour.",
+                        "Fry the chicken."
+                    ],
+                    "Image": "https://pressureluckcooking.com/wp-content/uploads/2020/03/Fried-Chicken-720x540.jpg"
+                }
+            ];
 
-            recipeList.innerHTML = ''; // Clear existing recipes
+            function loadRecipes() {
+                const recipeList = document.getElementById('recipe-list');
+                let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+                recipes = hardcodedRecipes.concat(recipes);
 
-            for (let index = 0; index < recipes.length; index++) {
-                const row = document.createElement('tr');
-                const recipe = recipes[index];
+                recipeList.innerHTML = ''; // Clear existing recipes
 
-                row.innerHTML = `
+                for (let index = 0; index < recipes.length; index++) {
+                    const row = document.createElement('tr');
+                    const recipe = recipes[index];
+
+                    row.innerHTML = `
                     <td>${recipe.Name}</td>
                     <td><button class="recipe-button" id="button-${index}" onclick="toggleDetails(${index})">Show Details</button></td>
                     <td>
@@ -98,10 +98,10 @@
                     </td>
                 `;
 
-                const detailsRow = document.createElement('tr');
-                detailsRow.classList.add('recipe-details');
-                detailsRow.id = `recipe-details-${index}`;
-                detailsRow.innerHTML = `
+                    const detailsRow = document.createElement('tr');
+                    detailsRow.classList.add('recipe-details');
+                    detailsRow.id = `recipe-details-${index}`;
+                    detailsRow.innerHTML = `
                     <td colspan="3">
                         <h3>Ingredients:</h3>
                         <ul>
@@ -115,39 +115,47 @@
                     </td>
                 `;
 
-                recipeList.appendChild(row);
-                recipeList.appendChild(detailsRow);
+                    recipeList.appendChild(row);
+                    recipeList.appendChild(detailsRow);
+                }
             }
-        }
 
-        function toggleDetails(index) {
-            const details = document.getElementById(`recipe-details-${index}`);
-            const button = details.previousElementSibling.querySelector('.recipe-button');
-            if (details.style.display === 'none' || details.style.display === '') {
-                details.style.display = 'table-row';
-                button.textContent = 'Hide Details';
-            } else {
-                details.style.display = 'none';
-                button.textContent = 'Show Details';
+            function toggleDetails(index) {
+                const details = document.getElementById(`recipe-details-${index}`);
+                const button = details.previousElementSibling.querySelector('.recipe-button');
+                if (details.style.display === 'none' || details.style.display === '') {
+                    details.style.display = 'table-row';
+                    button.textContent = 'Hide Details';
+                } else {
+                    details.style.display = 'none';
+                    button.textContent = 'Show Details';
+                }
             }
-        }
 
-        function editRecipe(index) {
-            const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-            const recipeToEdit = hardcodedRecipes.concat(recipes)[index];
-            localStorage.setItem('recipeToEdit', JSON.stringify({ index: index, recipe: recipeToEdit }));
-            window.location.href = 'form.html';
-        }
+            function editRecipe(index) {
+                const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+                const recipeToEdit = hardcodedRecipes.concat(recipes)[index];
+                localStorage.setItem('recipeToEdit', JSON.stringify({ index: index, recipe: recipeToEdit }));
+                window.location.href = 'form.html';
+            }
 
-        function deleteRecipe(index) {
-            let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-            recipes = recipes.filter((_, i) => i !== index); // Remove the recipe at the specified index
-            localStorage.setItem('recipes', JSON.stringify(recipes));
-            alert('Recipe deleted successfully!');
-            loadRecipes(); // Reload the recipes after deletion
-        }
+            function deleteRecipe(index) {
+                let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+                console.log(index)
+                console.log(recipes)
+                // recipes = JSON.parse(recipes).splice(0, 1, 1);
+                // const index2()= 0;
+                // if (index2 > -1) {
+                    recipes.splice(0, 1);
+                // }
+                console.log(recipes)
+                localStorage.setItem('recipes', JSON.stringify(recipes));
+                alert('Recipe deleted successfully!');
+                loadRecipes(); // Reload the recipes after deletion
+            }
 
-        document.addEventListener('DOMContentLoaded', loadRecipes);
-    </script>
+            document.addEventListener('DOMContentLoaded', loadRecipes);
+        </script>
 </body>
+
 </html>
