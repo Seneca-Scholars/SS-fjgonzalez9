@@ -82,7 +82,6 @@
                 const recipeList = document.getElementById('recipe-list');
                 let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
                 recipes = hardcodedRecipes.concat(recipes);
-
                 recipeList.innerHTML = ''; // Clear existing recipes
 
                 for (let index = 0; index < recipes.length; index++) {
@@ -141,13 +140,10 @@
 
             function deleteRecipe(index) {
                 let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+                let newIndex = index - 2
                 console.log(index)
                 console.log(recipes)
-                // recipes = JSON.parse(recipes).splice(0, 1, 1);
-                // const index2()= 0;
-                // if (index2 > -1) {
-                    recipes.splice(0, 1);
-                // }
+                recipes.splice(newIndex, 1);
                 console.log(recipes)
                 localStorage.setItem('recipes', JSON.stringify(recipes));
                 alert('Recipe deleted successfully!');
@@ -157,5 +153,4 @@
             document.addEventListener('DOMContentLoaded', loadRecipes);
         </script>
 </body>
-
 </html>

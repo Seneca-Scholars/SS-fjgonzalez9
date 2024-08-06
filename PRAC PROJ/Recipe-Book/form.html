@@ -66,7 +66,7 @@
             container.appendChild(newElem);
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const recipeToEdit = JSON.parse(localStorage.getItem('recipeToEdit'));
             if (recipeToEdit) {
                 document.getElementById('title').value = recipeToEdit.recipe.Name;
@@ -89,7 +89,7 @@
             }
         });
 
-        document.getElementById('recipeForm').addEventListener('submit', function(event) {
+        document.getElementById('recipeForm').addEventListener('submit', function (event) {
             event.preventDefault();
 
             const title = document.getElementById('title').value;
@@ -106,42 +106,21 @@
 
             const form = document.getElementById('recipeForm');
             let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-
+            console.log(recipes)
             if (form.dataset.editIndex) {
                 const index = parseInt(form.dataset.editIndex);
                 recipes[index] = recipe;
-                // Add code here 
+
                 alert('Recipe updated successfully!');
                 form.removeAttribute('data-edit-index');
             } else {
                 recipes.push(recipe);
                 alert('Recipe submitted successfully!');
             }
-
             localStorage.setItem('recipes', JSON.stringify(recipes));
             form.reset();
             document.getElementById('deleteButton').style.display = 'none'; // Hide delete button after submission
         });
-
-        function deleteRecipe() {
-            const form = document.getElementById('recipeForm');
-            const index = parseInt(form.dataset.editIndex);
-
-            if (index !== undefined) {
-                let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-                console.log(index)
-                console.log(recipes)
-                // recipes = JSON.parse(recipes).splice(0, 1, 1);
-                // const index2()= 0;
-                // if (index2 > -1) {
-                    recipes.splice(index, 1);
-                // }
-                console.log(recipes)
-                localStorage.setItem('recipes', JSON.stringify(recipes));
-                alert('Recipe deleted successfully!');
-                loadRecipes(); // Reload the recipes after deletion
-            }
-        }
     </script>
 </body>
 </html>
