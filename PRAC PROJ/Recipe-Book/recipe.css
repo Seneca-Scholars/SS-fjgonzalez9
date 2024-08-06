@@ -88,13 +88,13 @@ td {
 
 a {
     text-decoration: none;
-    color:white;
+    color:#F2E9E4;
     font-size: 23px;
     font-style:italic;
 }
 
 a:hover {
-    color:blanchedalmond;
+    color:#6EA4BF;
 }
 
 h3 { 
@@ -148,4 +148,11 @@ button:hover, input[type="submit"]:hover {
     margin-bottom: 15px;
     width: 700px;
     padding-left: 30px;
+}
+
+img {
+    width:200px;
+    border-radius:20px;
+    padding: 5px;
+    background-color:#1F363D;
 }
