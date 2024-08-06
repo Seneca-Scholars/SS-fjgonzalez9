@@ -101,7 +101,7 @@
                     detailsRow.classList.add('recipe-details');
                     detailsRow.id = `recipe-details-${index}`;
                     detailsRow.innerHTML = `
-                    <td colspan="3">
+                    <td colspan="3" class="recipe-text">
                         <h3>Ingredients:</h3>
                         <ul>
                             ${recipe.Ingredients.map(ingredient => `<li>${ingredient.amount} of ${ingredient.name}</li>`).join('')}
