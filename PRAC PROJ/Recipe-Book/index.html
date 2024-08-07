@@ -114,7 +114,7 @@
                             <ol>
                                 ${recipe.Steps.map(step => `<li>${step}</li>`).join('')}
                             </ol>
-                            ${recipe.Image ? `<h3>Image:</h3><img src="${recipe.Image}" alt="${recipe.Name}">` : ''}
+                            ${recipe.Image ? `<img src="${recipe.Image}" alt="${recipe.Name}">` : ''}
                         </td>
                     `;
 
