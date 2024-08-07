@@ -82,6 +82,10 @@
                 const recipeList = document.getElementById('recipe-list');
                 let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
                 recipes = hardcodedRecipes.concat(recipes);
+
+                // Filter out any null or undefined recipes
+                recipes = recipes.filter(recipe => recipe !== null && recipe !== undefined);
+
                 recipeList.innerHTML = ''; // Clear existing recipes
 
                 for (let index = 0; index < recipes.length; index++) {
@@ -89,30 +93,30 @@
                     const recipe = recipes[index];
 
                     row.innerHTML = `
-                    <td>${recipe.Name}</td>
-                    <td><button class="recipe-button" id="button-${index}" onclick="toggleDetails(${index})">Show Details</button></td>
-                    <td>
-                        <button class="edit-button" onclick="editRecipe(${index})">Edit</button>
-                        <button class="delete-button" onclick="deleteRecipe(${index})">Delete</button>
-                    </td>
-                `;
+                        <td>${recipe.Name}</td>
+                        <td><button class="recipe-button" id="button-${index}" onclick="toggleDetails(${index})">Show Details</button></td>
+                        <td>
+                            <button class="edit-button" onclick="editRecipe(${index})">Edit</button>
+                            <button class="delete-button" onclick="deleteRecipe(${index})">Delete</button>
+                        </td>
+                    `;
 
                     const detailsRow = document.createElement('tr');
                     detailsRow.classList.add('recipe-details');
                     detailsRow.id = `recipe-details-${index}`;
                     detailsRow.innerHTML = `
-                    <td colspan="3" class="recipe-text">
-                        <h3>Ingredients:</h3>
-                        <ul>
-                            ${recipe.Ingredients.map(ingredient => `<li>${ingredient.amount} of ${ingredient.name}</li>`).join('')}
-                        </ul>
-                        <h3>Steps:</h3>
-                        <ol>
-                            ${recipe.Steps.map(step => `<li>${step}</li>`).join('')}
-                        </ol>
-                        ${recipe.Image ? `<h3>Image:</h3><img src="${recipe.Image}" alt="${recipe.Name}">` : ''}
-                    </td>
-                `;
+                        <td colspan="3" class="recipe-text">
+                            <h3>Ingredients:</h3>
+                            <ul>
+                                ${recipe.Ingredients.map(ingredient => `<li>${ingredient.amount} of ${ingredient.name}</li>`).join('')}
+                            </ul>
+                            <h3>Steps:</h3>
+                            <ol>
+                                ${recipe.Steps.map(step => `<li>${step}</li>`).join('')}
+                            </ol>
+                            ${recipe.Image ? `<h3>Image:</h3><img src="${recipe.Image}" alt="${recipe.Name}">` : ''}
+                        </td>
+                    `;
 
                     recipeList.appendChild(row);
                     recipeList.appendChild(detailsRow);
