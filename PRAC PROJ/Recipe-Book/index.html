@@ -145,10 +145,7 @@
             function deleteRecipe(index) {
                 let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
                 let newIndex = index - 2
-                console.log(index)
-                console.log(recipes)
                 recipes.splice(newIndex, 1);
-                console.log(recipes)
                 localStorage.setItem('recipes', JSON.stringify(recipes));
                 alert('Recipe deleted successfully!');
                 loadRecipes(); // Reload the recipes after deletion
