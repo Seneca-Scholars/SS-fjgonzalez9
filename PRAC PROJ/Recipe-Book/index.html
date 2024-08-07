@@ -137,7 +137,7 @@
 
             function editRecipe(index) {
                 const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-                const recipeToEdit = hardcodedRecipes.concat(recipes)[index];
+                const recipeToEdit = recipes[index - 2];
                 localStorage.setItem('recipeToEdit', JSON.stringify({ index: index, recipe: recipeToEdit }));
                 window.location.href = 'form.html';
             }
