@@ -28,6 +28,7 @@
 
 
         <script>
+            //list of objects with hard-coded recipes
             let hardcodedRecipes = [
                 {
                     "Name": "Baked Mac and Cheese",
@@ -79,19 +80,26 @@
             ];
 
             function loadRecipes() {
+                //gets element recipe-list from table
                 const recipeList = document.getElementById('recipe-list');
+                //local storage for recipes
                 let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+                //adds hard-coded recipes to recipes
                 recipes = hardcodedRecipes.concat(recipes);
-
-                // Filter out any null or undefined recipes
+                // filters out any null or undefined recipes
                 recipes = recipes.filter(recipe => recipe !== null && recipe !== undefined);
-
-                recipeList.innerHTML = ''; // Clear existing recipes
-
+     
+                recipeList.innerHTML = ''; // clear existing recipes
+                //loop for every index of recipes
                 for (let index = 0; index < recipes.length; index++) {
+                    //variable for row for specified index
                     const row = document.createElement('tr');
+                    //variable with the recipe of specified index
                     const recipe = recipes[index];
-
+                    
+                    //retrieves name of recipe to store as table data
+                    //adds buttons, some with unique ids for every index
+                    //show details, edit and delete buttons
                     row.innerHTML = `
                         <td>${recipe.Name}</td>
                         <td><button class="recipe-button" id="button-${index}" onclick="toggleDetails(${index})">Show Details</button></td>
@@ -100,10 +108,14 @@
                             <button class="delete-button" onclick="deleteRecipe(${index})">Delete</button>
                         </td>
                     `;
-
+                    //new row variable for recipe details when show details clicked
                     const detailsRow = document.createElement('tr');
                     detailsRow.classList.add('recipe-details');
                     detailsRow.id = `recipe-details-${index}`;
+                    //retrieves ingredients from recipe by ingredient key
+                    //creates new array with everything in the previous object as a list
+                    //same thing for steps
+                    //if there is an image shows image, if not show the name
                     detailsRow.innerHTML = `
                         <td colspan="3" class="recipe-text">
                             <h3>Ingredients:</h3>
@@ -117,12 +129,12 @@
                             ${recipe.Image ? `<img src="${recipe.Image}" alt="${recipe.Name}">` : ''}
                         </td>
                     `;
-
+                    //adds rows to table body for specified index
                     recipeList.appendChild(row);
                     recipeList.appendChild(detailsRow);
                 }
             }
-
+            //toggles showing recipe details 
             function toggleDetails(index) {
                 const details = document.getElementById(`recipe-details-${index}`);
                 const button = details.previousElementSibling.querySelector('.recipe-button');
@@ -134,10 +146,10 @@
                     button.textContent = 'Show Details';
                 }
             }
-
+            
             function editRecipe(index) {
                 const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-                const recipeToEdit = recipes[index - 2];
+                const recipeToEdit = hardcodedRecipes.concat(recipes)[index];
                 localStorage.setItem('recipeToEdit', JSON.stringify({ index: index, recipe: recipeToEdit }));
                 window.location.href = 'form.html';
             }
@@ -150,7 +162,7 @@
                 alert('Recipe deleted successfully!');
                 loadRecipes(); // Reload the recipes after deletion
             }
-
+            //load recipe when fully loaded
             document.addEventListener('DOMContentLoaded', loadRecipes);
         </script>
 </body>
