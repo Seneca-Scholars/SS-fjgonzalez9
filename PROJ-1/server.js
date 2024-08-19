@@ -9,12 +9,14 @@ app.use(express.json());
 
 // In-memory data store for simplicity
 let items = [];
+let nextId = 1; // Variable to keep track of the next available ID
 
 // Define a function to start the server
 function startServer() {
-    app.listen(3000, () => {
-        console.log('Server running on port 3000');
-        console.log('http://localhost:3000/api/items');
+    const port = 3000;
+    app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+        console.log(`API endpoint: http://localhost:${port}/api/items`);
     });
 }
 
@@ -28,11 +30,13 @@ function getItems(req, res) {
 // POST Endpoint (Adding New Data to the Server)
 function addItem(req, res) {
     const newItem = req.body; // Extract the data sent in the request body
-    if (newItem && newItem.name && newItem.id) { // Check if the new item has a name and ID
-        items.push(newItem); // Add the new item to the items array
-        res.status(201).send(`Item added: ${newItem.name}`); // Respond with a success message and HTTP 201 status
+    if (newItem && newItem.name) { // Check if the new item has a name
+        // Automatically assign a new ID and add the new item to the items array
+        const itemToAdd = { id: nextId++, name: newItem.name };
+        items.push(itemToAdd);
+        res.status(201).json(itemToAdd); // Respond with the new item and HTTP 201 status
     } else {
-        res.status(400).send('Item ID and name are required'); // Respond with an error message and HTTP 400 status if data is missing
+        res.status(400).send('Item name is required'); // Respond with an error message and HTTP 400 status if data is missing
     }
 }
 
