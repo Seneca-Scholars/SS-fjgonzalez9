@@ -17,14 +17,17 @@ app.get('/api/items', (req, res) => {
     res.send('List of items');
 });
 
-// POST Endpoint (Adding new Data to the Server)
 app.post('/api/items', (req, res) => {
-    const newItem = req.body; // Data sent in the request body and is sent back in reponse
-    res.send(`Item added: ${newItem.name}`);
+    const newItem = req.body; // Data sent in the request body
+    if (newItem && newItem.name) {
+        res.send(`Item added: ${newItem.name}`);
+    } else {
+        res.status(400).send('Item name is required');
+    }
 });
 
 // PUT Endpoint (Updating Existing Data)
-app.put('api/items/:id', (req, res) => {
+app.put('/api/items/:id', (req, res) => {
     const itemId = req.params.id; // Access the ID parameter from the URL
     res.send(`Item with ID ${itemId} updated`);
 });
@@ -32,5 +35,5 @@ app.put('api/items/:id', (req, res) => {
 // DELETE Endpoint (Removes Data)
 app.delete('/api/items/id:', (req, res) => {
     const itemId = req.params.id; // Detemines what specific item to delete
-    res.send(`Item with iD ${itemID} deleted`);
+    res.send(`Item with iD ${itemId} deleted`);
 });
