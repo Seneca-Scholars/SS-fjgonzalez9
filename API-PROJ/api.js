@@ -38,7 +38,7 @@ async function getItems(req, res) {
         res.json(items);
     } catch (error) {
         // Handle errors and send an error response
-        res.status(500).json({ error: 'An error occurred while fetching items' });
+        res.status(500).json(`${error}`);
     }
 }
 
@@ -50,16 +50,15 @@ async function addItem(req, res) {
 
         // Extract the new item from the request body
         const newItem = req.body;
-
+        console.log(newItem)
         // Check if the new item contains any key-value pairs
         if (newItem && Object.keys(newItem).length > 0) {
             // Construct SQL statement dynamically
-            const columns = Object.keys(newItem).join(', '); // e.g., "name, description"
             const values = Object.values(newItem); // e.g., ["Item Name", "Item Description"]
             const placeholders = values.map(() => '?').join(', '); // e.g., "?, ?"
 
             // SQL statement for inserting the new item
-            const sql = `INSERT INTO items (${columns}) VALUES (${placeholders})`;
+            const sql = `INSERT INTO items (data) VALUES (${placeholders})`;
 
             // Execute the SQL statement
             const result = await db.run(sql, values);
@@ -73,10 +72,10 @@ async function addItem(req, res) {
             // Send an error response if the item is invalid
             res.status(400).json({ error: 'Item must have at least one key-value pair' });
         }
-    } catch (error) {
-        // Handle errors and send an error response
-        res.status(500).json({ error: 'An error occurred while adding the item' });
-    }
+        } catch (error) {
+            // Handle errors and send an error response
+            res.status(500).json(`${error}`);
+   }
 }
 
 // PUT Endpoint: Update an existing item in the database
@@ -94,13 +93,10 @@ async function updateItem(req, res) {
         // Check if the updated item contains any key-value pairs
         if (updatedItem && Object.keys(updatedItem).length > 0) {
             // Construct SQL statement dynamically for updating
-            const columns = Object.keys(updatedItem)
-                .map(key => `${key} = ?`) // e.g., "name = ?, description = ?"
-                .join(', ');
             const values = [...Object.values(updatedItem), itemId]; // Add item ID to values
 
             // SQL statement for updating the item
-            const sql = `UPDATE items SET ${columns} WHERE id = ?`;
+            const sql = `UPDATE items SET data = ? WHERE id = ?`;
 
             // Execute the SQL statement
             const result = await db.run(sql, values);
@@ -119,7 +115,7 @@ async function updateItem(req, res) {
         }
     } catch (error) {
         // Handle errors and send an error response
-        res.status(500).json({ error: 'An error occurred while updating the item' });
+        res.status(500).json(`${error}`);
     }
 }
 
@@ -145,7 +141,7 @@ async function deleteItem(req, res) {
         }
     } catch (error) {
         // Handle errors and send an error response
-        res.status(500).json({ error: 'An error occurred while deleting the item' });
+        res.status(500).json(`${error}`);
     }
 }
 
