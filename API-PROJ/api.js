@@ -1,6 +1,6 @@
 // Import the required modules
 const express = require('express');
-const { openDb, initDb } = require('./database');
+const {openDb, initDb} = require('./database');
 
 // Initialize a new Express application
 const app = express();
@@ -8,17 +8,20 @@ const app = express();
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
-// Start the server and initialize the database
-async function startServer() {
+// Define the function to start the server
+function startServer() {
     const port = 3000;
 
     // Initialize the database
-    await initDb();
-
-    // Start the server
-    app.listen(port, () => {
-        console.log(`Server running on port ${port}`); // Log the server port
-        console.log(`API endpoint: http://localhost:${port}/api/items`); // Log the API endpoint
+    initDb().then(() => {
+        // Start the server
+        app.listen(port, () => {
+            console.log(`Server running on port ${port}`); // Log the server port
+            console.log(`API endpoint: http://localhost:${port}/api/items`); // Log the API endpoint
+        });
+    }).catch(error => {
+        console.error('Failed to initialize the database:', error);
+        process.exit(1); // Exit the process if database initialization fails
     });
 }
 
