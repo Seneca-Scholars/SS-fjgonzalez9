@@ -58,7 +58,7 @@ async function addItem(req, res) {
             const placeholders = values.map(() => '?').join(', '); // e.g., "?, ?"
 
             // SQL statement for inserting the new item
-            const sql = `INSERT INTO items (data) VALUES (${placeholders})`;
+            const sql = `INSERT INTO items (name) VALUES (${placeholders})`;
 
             // Execute the SQL statement
             const result = await db.run(sql, values);
@@ -96,7 +96,7 @@ async function updateItem(req, res) {
             const values = [...Object.values(updatedItem), itemId]; // Add item ID to values
 
             // SQL statement for updating the item
-            const sql = `UPDATE items SET data = ? WHERE id = ?`;
+            const sql = `UPDATE items SET name = ? WHERE id = ?`;
 
             // Execute the SQL statement
             const result = await db.run(sql, values);

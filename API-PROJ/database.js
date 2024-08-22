@@ -21,9 +21,8 @@ async function initDb() {
         const db = await openDb();
         await db.exec(`
             CREATE TABLE IF NOT EXISTS items (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                description TEXT
+                id INTEGER PRIMARY KEY,
+                name TEXT NOT NULL
             )
         `);
     } catch (error) {
