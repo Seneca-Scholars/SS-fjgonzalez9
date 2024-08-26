@@ -1,6 +1,6 @@
 // Import the required modules
 const express = require('express');
-const {openDb, initDb} = require('./database');
+const { openDb, initDb } = require('./database');
 
 // Initialize a new Express application
 const app = express();
@@ -38,7 +38,7 @@ async function getItems(req, res) {
         res.json(items);
     } catch (error) {
         // Handle errors and send an error response
-        res.status(500).json(`${error}`);
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -49,33 +49,29 @@ async function addItem(req, res) {
         const db = await openDb();
 
         // Extract the new item from the request body
-        const newItem = req.body;
-        console.log(newItem)
-        // Check if the new item contains any key-value pairs
-        if (newItem && Object.keys(newItem).length > 0) {
-            // Construct SQL statement dynamically
-            const values = Object.values(newItem); // e.g., ["Item Name", "Item Description"]
-            const placeholders = values.map(() => '?').join(', '); // e.g., "?, ?"
+        const { name, phone, address } = req.body;
 
+        // Check if the new item contains the required fields
+        if (name && phone && address) {
             // SQL statement for inserting the new item
-            const sql = `INSERT INTO items (name) VALUES (${placeholders})`;
+            const sql = 'INSERT INTO items (name, phone, address) VALUES (?, ?, ?)';
 
             // Execute the SQL statement
-            const result = await db.run(sql, values);
+            const result = await db.run(sql, [name, phone, address]);
 
             // Create the response object with the inserted item and ID
-            const insertedItem = { id: result.lastID, ...newItem };
+            const insertedItem = { id: result.lastID, name, phone, address };
 
             // Send the newly created item with HTTP 201 status
             res.status(201).json(insertedItem);
         } else {
             // Send an error response if the item is invalid
-            res.status(400).json({ error: 'Item must have at least one key-value pair' });
+            res.status(400).json({ error: 'Item must have name, phone, and address fields' });
         }
-        } catch (error) {
-            // Handle errors and send an error response
-            res.status(500).json(`${error}`);
-   }
+    } catch (error) {
+        // Handle errors and send an error response
+        res.status(500).json({ error: error.message });
+    }
 }
 
 // PUT Endpoint: Update an existing item in the database
@@ -88,34 +84,51 @@ async function updateItem(req, res) {
         const itemId = parseInt(req.params.id, 10);
 
         // Extract the updated item data from the request body
-        const updatedItem = req.body;
+        const { name, phone, address } = req.body;
 
         // Check if the updated item contains any key-value pairs
-        if (updatedItem && Object.keys(updatedItem).length > 0) {
+        if (name || phone || address) {
             // Construct SQL statement dynamically for updating
-            const values = [...Object.values(updatedItem), itemId]; // Add item ID to values
+            const updates = [];
+            const values = [];
+
+            if (name) {
+                updates.push('name = ?');
+                values.push(name);
+            }
+            if (phone) {
+                updates.push('phone = ?');
+                values.push(phone);
+            }
+            if (address) {
+                updates.push('address = ?');
+                values.push(address);
+            }
+
+            values.push(itemId); // Add item ID to values
 
             // SQL statement for updating the item
-            const sql = `UPDATE items SET name = ? WHERE id = ?`;
+            const sql = `UPDATE items SET ${updates.join(', ')} WHERE id = ?`;
 
             // Execute the SQL statement
             const result = await db.run(sql, values);
 
             // Check if the item was updated
             if (result.changes > 0) {
-                // Send a success message
-                res.json({ message: `Item with ID ${itemId} updated` });
+                // Retrieve and send the updated item
+                const updatedItem = await db.get('SELECT * FROM items WHERE id = ?', [itemId]);
+                res.json(updatedItem);
             } else {
                 // Send an error response if the item is not found
                 res.status(404).json({ error: 'Item not found' });
             }
         } else {
             // Send an error response if the updated item data is invalid
-            res.status(400).json({ error: 'Item must have at least one key-value pair' });
+            res.status(400).json({ error: 'Item must have at least one field to update' });
         }
     } catch (error) {
         // Handle errors and send an error response
-        res.status(500).json(`${error}`);
+        res.status(500).json({ error: error.message });
     }
 }
 
@@ -141,7 +154,7 @@ async function deleteItem(req, res) {
         }
     } catch (error) {
         // Handle errors and send an error response
-        res.status(500).json(`${error}`);
+        res.status(500).json({ error: error.message });
     }
 }
 

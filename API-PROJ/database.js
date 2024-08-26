@@ -22,7 +22,9 @@ async function initDb() {
         await db.exec(`
             CREATE TABLE IF NOT EXISTS items (
                 id INTEGER PRIMARY KEY,
-                name TEXT NOT NULL
+                name TEXT NOT NULL,
+                phone TEXT NOT NULL,
+                address TEXT NOT NULL
             )
         `);
     } catch (error) {
@@ -31,4 +33,4 @@ async function initDb() {
     }
 }
 
-module.exports = {openDb, initDb};
+module.exports = { openDb, initDb };
