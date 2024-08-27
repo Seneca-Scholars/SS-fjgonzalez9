@@ -20,7 +20,7 @@ async function initDb() {
     try {
         const db = await openDb();
         await db.exec(`
-            CREATE TABLE IF NOT EXISTS items (
+            CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY,
                 name TEXT NOT NULL,
                 phone TEXT NOT NULL,
