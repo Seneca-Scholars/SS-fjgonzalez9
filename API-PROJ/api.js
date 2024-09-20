@@ -49,24 +49,24 @@ async function addUser(req, res) {
         const db = await openDb();
 
         // Extract the new item from the request body
-        const { name, phone, address } = req.body;
+        const { name, phone, address, email } = req.body;
 
         // Check if the new item contains the required fields
-        if (name && phone && address) {
+        if (name && phone && address && email) {
             // SQL statement for inserting the new item
-            const sql = 'INSERT INTO users (name, phone, address) VALUES (?, ?, ?)';
+            const sql = 'INSERT INTO users (name, phone, address, email) VALUES (?, ?, ?, ?)';
 
             // Execute the SQL statement
-            const result = await db.run(sql, [name, phone, address]);
+            const result = await db.run(sql, [name, phone, address, email]);
 
             // Create the response object with the inserted item and ID
-            const insertedUser = { id: result.lastID, name, phone, address };
+            const insertedUser = { id: result.lastID, name, phone, address, email };
 
             // Send the newly created item with HTTP 201 status
             res.status(201).json(insertedUser);
         } else {
             // Send an error response if the item is invalid
-            res.status(400).json({ error: 'User must have name, phone, and address fields' });
+            res.status(400).json({ error: 'User must have name, phone, address and email fields' });
         }
     } catch (error) {
         // Handle errors and send an error response
@@ -84,10 +84,10 @@ async function updateUser(req, res) {
         const userId = parseInt(req.params.id, 10);
 
         // Extract the updated item data from the request body
-        const { name, phone, address } = req.body;
+        const { name, phone, address, email } = req.body;
 
         // Check if the updated item contains any key-value pairs
-        if (name || phone || address) {
+        if (name || phone || address || email) {
             // Construct SQL statement dynamically for updating
             const updates = [];
             const values = [];
@@ -103,6 +103,10 @@ async function updateUser(req, res) {
             if (address) {
                 updates.push('address = ?');
                 values.push(address);
+            }
+            if (email) {
+                updates.push('email = ?');
+                values.push(email)
             }
 
             values.push(userId); // Add item ID to values
